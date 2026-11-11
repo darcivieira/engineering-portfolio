@@ -15,3 +15,13 @@ assert.match(js,/renderActivity/);
 const data=JSON.parse(await readFile('dist/data/github-activity.json','utf8'));
 assert.equal(data.username,'darcivieira');
 console.log('PASS: bilingual pages, project content, controls and data contract');
+const experience=JSON.parse(await readFile('content/experience.json','utf8'));
+assert.equal(experience.length,4);
+for(const entry of experience){
+  assert.ok(entry.deliveries.length>=2);
+  for(const lang of ['pt','en']){
+    assert.ok(entry.summary[lang]);
+    for(const delivery of entry.deliveries)assert.ok(delivery.title[lang] && delivery.text[lang]);
+  }
+}
+await import('./test-sync.mjs');

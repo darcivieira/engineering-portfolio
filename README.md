@@ -5,7 +5,8 @@ A premium, bilingual (Portuguese/English), accessibility-aware, zero-dependency 
 ## What is included
 
 - Portuguese homepage (`/`) and English version (`/en/`), both statically rendered for indexing.
-- Engineering philosophy, architecture illustration, verified public project links, consulting case studies, work history, GitHub activity, contact section.
+- Personal introduction and a proposal for employers in PT/EN, emphasizing Python expertise, senior roles and consulting.
+- Engineering philosophy, Python code illustration, verified public project links, consulting case studies, work history, GitHub activity, contact section.
 - Project category filters, mobile navigation, progressive enhancements and reduced-motion support.
 - Automated, read-only public GitHub activity collection. The snapshot is built server-side by GitHub Actions; no API credentials reach visitors.
 - Cloudflare Pages-compatible security headers, robots.txt and SVG favicon.
@@ -29,12 +30,17 @@ npm run sync:github
 npm run build
 ```
 
-Public GitHub events are a *limited window* (currently up to 30 days / 300 events), not full work history. The commit timeline covers the project's four selected public repositories only. For privacy and accuracy, don't characterize that chart as total work or contributions. The daily GitHub Actions workflow updates the snapshot and commits the result when changed. On GitHub, repository Settings > Actions > General must allow workflow write permissions to push the snapshot. The first sync can be started manually with Actions > Refresh public GitHub activity > Run workflow.
+The dashboard uses the GitHub profile contribution calendar across projects, including anonymous private contribution counts when shared through the profile. It shows 30 UTC calendar days, total contributions, anonymous restricted contributions and active days. Contributions are not synonymous with commits or a complete record of every action. The detailed feed uses only the unauthenticated public events endpoint (limited by GitHub's availability); no private repository names, titles or links are requested for the contribution summary or published in the snapshot.
+
+Locally, synchronization reuses your `gh` sign-in if no environment token is set. In GitHub Actions it uses `GITHUB_TOKEN`; an optional repository secret named `CONTRIBUTIONS_TOKEN` can provide a read credential if the workflow token cannot query the profile. Credentials never enter the generated files. Private counts still depend on GitHub profile visibility settings. Any collection failure leaves the previous snapshot intact, and the dashboard displays its actual date range.
+
+The daily GitHub Actions workflow updates the snapshot and commits changes. Repository Settings > Actions > General must allow workflow write permissions to push the snapshot. Start it manually with Actions > Refresh GitHub contributions and public activity > Run workflow.
 
 ## Customize
 
-1. `content/site.json`: all translated website copy, site identity, email and LinkedIn URL. `identity.email` and `identity.linkedinUrl` are blank until the owner supplies real contact details.
+1. `content/site.json`: translated website copy, site identity, email and LinkedIn URL. `identity.linkedinUrl` points to the owner’s profile; `identity.email` is blank until the owner supplies an address.
 2. `content/projects.json`: portfolio projects, descriptions, stack tags, repository URLs.
+   `content/experience.json`: company-specific roles, dates, projects and delivery notes in PT/EN.
 3. `src/main.css`: design system and responsive styles.
 4. `src/main.js`: filters, activity graph and navigation.
 5. `scripts/build.mjs`: static HTML templates and structure.

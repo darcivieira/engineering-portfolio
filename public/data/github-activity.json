@@ -1,52 +1,211 @@
 {
   "username": "darcivieira",
-  "updatedAt": "2026-11-11T11:49:11.490650Z",
+  "updatedAt": "2026-11-11T12:42:32.439Z",
   "windowDays": 30,
-  "commitsVerified": true,
-  "eventsVerified": false,
-  "commits": [
+  "contributions": {
+    "from": "2026-10-13T00:00:00.000Z",
+    "to": "2026-11-11T23:59:59.999Z",
+    "updatedAt": "2026-11-11T12:42:32.439Z",
+    "total": 363,
+    "restricted": 353,
+    "activeDays": 22,
+    "days": [
+      {
+        "date": "2026-10-13",
+        "count": 32
+      },
+      {
+        "date": "2026-10-14",
+        "count": 10
+      },
+      {
+        "date": "2026-10-15",
+        "count": 3
+      },
+      {
+        "date": "2026-10-16",
+        "count": 5
+      },
+      {
+        "date": "2026-10-17",
+        "count": 0
+      },
+      {
+        "date": "2026-10-18",
+        "count": 0
+      },
+      {
+        "date": "2026-10-19",
+        "count": 5
+      },
+      {
+        "date": "2026-10-20",
+        "count": 10
+      },
+      {
+        "date": "2026-10-21",
+        "count": 14
+      },
+      {
+        "date": "2026-10-22",
+        "count": 27
+      },
+      {
+        "date": "2026-10-23",
+        "count": 16
+      },
+      {
+        "date": "2026-10-24",
+        "count": 2
+      },
+      {
+        "date": "2026-10-25",
+        "count": 0
+      },
+      {
+        "date": "2026-10-26",
+        "count": 3
+      },
+      {
+        "date": "2026-10-27",
+        "count": 14
+      },
+      {
+        "date": "2026-10-28",
+        "count": 16
+      },
+      {
+        "date": "2026-10-29",
+        "count": 25
+      },
+      {
+        "date": "2026-10-30",
+        "count": 47
+      },
+      {
+        "date": "2026-10-31",
+        "count": 0
+      },
+      {
+        "date": "2026-11-01",
+        "count": 0
+      },
+      {
+        "date": "2026-11-02",
+        "count": 0
+      },
+      {
+        "date": "2026-11-03",
+        "count": 3
+      },
+      {
+        "date": "2026-11-04",
+        "count": 30
+      },
+      {
+        "date": "2026-11-05",
+        "count": 10
+      },
+      {
+        "date": "2026-11-06",
+        "count": 23
+      },
+      {
+        "date": "2026-11-07",
+        "count": 0
+      },
+      {
+        "date": "2026-11-08",
+        "count": 0
+      },
+      {
+        "date": "2026-11-09",
+        "count": 36
+      },
+      {
+        "date": "2026-11-10",
+        "count": 28
+      },
+      {
+        "date": "2026-11-11",
+        "count": 4
+      }
+    ]
+  },
+  "events": [
     {
-      "sha": "94e132500e",
-      "title": "Merge pull request #6 from darcivieira/feat/dashboard-scorecard",
+      "id": "26805727515",
+      "type": "Push",
+      "repo": "darcivieira/crucible",
+      "date": "2026-11-09T18:52:16Z",
+      "action": "",
+      "title": "Push",
+      "url": "https://github.com/darcivieira/crucible"
+    },
+    {
+      "id": "26804497190",
+      "type": "Create",
+      "repo": "darcivieira/crucible",
+      "date": "2026-11-10T11:25:35Z",
+      "action": "",
+      "title": "Create",
+      "url": "https://github.com/darcivieira/crucible"
+    },
+    {
+      "id": "19664005507",
+      "type": "PullRequest",
       "repo": "darcivieira/crucible",
       "date": "2026-11-10T12:19:19Z",
-      "url": "https://github.com/darcivieira/crucible/commit/94e132500e3e94dd51a9fe782100a250cd85f0c3"
+      "action": "merged",
+      "title": "PullRequest",
+      "url": "https://github.com/darcivieira/crucible"
     },
     {
-      "sha": "5cc7017e7c",
-      "title": "feat(dashboard): add a scorecard workspace",
+      "id": "19659806764",
+      "type": "PullRequest",
       "repo": "darcivieira/crucible",
-      "date": "2026-11-10T11:25:32Z",
-      "url": "https://github.com/darcivieira/crucible/commit/5cc7017e7c4cb94716d7ba31920dc81adeeccccf"
+      "date": "2026-11-10T11:26:09Z",
+      "action": "opened",
+      "title": "PullRequest",
+      "url": "https://github.com/darcivieira/crucible"
     },
     {
-      "sha": "9d4d65fcdc",
-      "title": "Merge pull request #5 from darcivieira/chore/english-only",
+      "id": "26701249760",
+      "type": "Create",
+      "repo": "darcivieira/crucible",
+      "date": "2026-11-09T17:43:27Z",
+      "action": "",
+      "title": "Create",
+      "url": "https://github.com/darcivieira/crucible"
+    },
+    {
+      "id": "26700145717",
+      "type": "Push",
+      "repo": "darcivieira/crucible",
+      "date": "2026-11-09T17:57:17Z",
+      "action": "",
+      "title": "Push",
+      "url": "https://github.com/darcivieira/crucible"
+    },
+    {
+      "id": "19582826450",
+      "type": "PullRequest",
       "repo": "darcivieira/crucible",
       "date": "2026-11-09T18:52:14Z",
-      "url": "https://github.com/darcivieira/crucible/commit/9d4d65fcdcd64f6af08495a878ed4c142b23d384"
+      "action": "merged",
+      "title": "PullRequest",
+      "url": "https://github.com/darcivieira/crucible"
     },
     {
-      "sha": "39e1cb8f34",
-      "title": "fix: preserve existing workflows during English migration",
+      "id": "19578053050",
+      "type": "PullRequest",
       "repo": "darcivieira/crucible",
-      "date": "2026-11-09T17:57:15Z",
-      "url": "https://github.com/darcivieira/crucible/commit/39e1cb8f341697cdaa0b6785d06188d2b9d6df44"
-    },
-    {
-      "sha": "46a81c1109",
-      "title": "refactor!: standardize project language on English",
-      "repo": "darcivieira/crucible",
-      "date": "2026-11-09T17:43:23Z",
-      "url": "https://github.com/darcivieira/crucible/commit/46a81c11095f029d31b49fdf29a554bb0072d700"
+      "date": "2026-11-09T17:43:49Z",
+      "action": "opened",
+      "title": "PullRequest",
+      "url": "https://github.com/darcivieira/crucible"
     }
   ],
-  "events": [],
-  "repositories": [
-    "https://github.com/darcivieira/crucible",
-    "https://github.com/darcivieira/kanbanize-sdk",
-    "https://github.com/darcivieira/first-backend-challange",
-    "https://github.com/darcivieira/rag-ai-agent"
-  ],
-  "note": "Initial verified commit sample from connected GitHub search. Public event feed will be populated by the scheduled GitHub Action."
+  "eventsVerified": true,
+  "note": "Profile contribution counts, including anonymous restricted contributions when shared by the user. Detailed activity is public-only and limited by GitHub public events availability."
 }

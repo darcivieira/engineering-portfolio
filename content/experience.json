@@ -1,0 +1,269 @@
+[
+  {
+    "id": "aurum",
+    "company": "Aurum Softwares",
+    "period": {
+      "pt": "Set 2025 — Atual",
+      "en": "Sep 2025 — Present"
+    },
+    "role": {
+      "pt": "Senior Backend Engineer · Python",
+      "en": "Senior Backend Engineer · Python"
+    },
+    "summary": {
+      "pt": "Engenharia backend em plataformas LegalTech: coleta de dados jurídicos, processamento distribuído e inteligência documental com IA em produção.",
+      "en": "Backend engineering for LegalTech platforms: legal data collection, distributed processing and AI document intelligence in production."
+    },
+    "stack": [
+      "Python",
+      "FastAPI",
+      "Scrapy",
+      "Playwright",
+      "LLMs / RAG",
+      "RabbitMQ",
+      "Redis",
+      "Kubernetes",
+      "GCP"
+    ],
+    "deliveries": [
+      {
+        "title": {
+          "pt": "Pipelines de dados jurídicos",
+          "en": "Legal data pipelines"
+        },
+        "text": {
+          "pt": "Desenvolvimento e manutenção de coleta em fontes oficiais com Scrapy e Playwright, tratando instabilidade das fontes e falhas de execução.",
+          "en": "Built and maintained collection pipelines over official sources with Scrapy and Playwright, handling unstable sources and execution failures."
+        }
+      },
+      {
+        "title": {
+          "pt": "Inteligência documental com IA",
+          "en": "AI document intelligence"
+        },
+        "text": {
+          "pt": "Implementação de recursos com LLMs para RAG, sumarização de processos jurídicos e classificação de documentos integrados aos sistemas de produção.",
+          "en": "Implemented LLM features for RAG, legal case summarization and document classification integrated into production systems."
+        }
+      },
+      {
+        "title": {
+          "pt": "Confiabilidade entre aplicação e infraestrutura",
+          "en": "Reliability across application and infrastructure"
+        },
+        "text": {
+          "pt": "Investigação de gargalos e cenários de falha em serviços com RabbitMQ, Redis, Kubernetes e GCP, contribuindo para decisões de arquitetura e operação.",
+          "en": "Investigated bottlenecks and failure scenarios across RabbitMQ, Redis, Kubernetes and GCP services, contributing to architecture and operations decisions."
+        }
+      }
+    ]
+  },
+  {
+    "id": "cubo-oneglobal",
+    "company": "Cubo Tecnologia → OneGlobal",
+    "period": {
+      "pt": "Fev 2024 — Ago 2025",
+      "en": "Feb 2024 — Aug 2025"
+    },
+    "role": {
+      "pt": "Consultoria independente · Backend, SRE e infraestrutura",
+      "en": "Independent consultant · Backend, SRE and infrastructure"
+    },
+    "summary": {
+      "pt": "Consultoria contratada pela Cubo Tecnologia para atender a OneGlobal, corretora de seguro garantia, na plataforma OneSurety. Integração do CRM de cotações com seguradoras, infraestrutura para os serviços da empresa e soluções de IA para documentos e atendimento.",
+      "en": "Consulting engagement through Cubo Tecnologia for OneGlobal, a surety insurance broker, on its OneSurety platform. Connected the quotation CRM to insurers, built infrastructure for company services and developed AI solutions for documents and assistance."
+    },
+    "stack": [
+      "Python",
+      "APIs",
+      "LLMs",
+      "Docker Swarm",
+      "Web Scraping",
+      "CI/CD",
+      "SRE",
+      "Observability"
+    ],
+    "deliveries": [
+      {
+        "title": {
+          "pt": "CRM conectado a cerca de dez seguradoras",
+          "en": "CRM connected to approximately ten insurers"
+        },
+        "text": {
+          "pt": "Concepção e desenvolvimento do Insurers Connector para integrar o CRM existente aos sistemas de cerca de dez seguradoras, conectando a gestão de solicitações de cotação, cotações e apólices de seguro garantia.",
+          "en": "Designed and built the Insurers Connector to connect the existing CRM to approximately ten insurers, linking the management of quotation requests, quotations and surety insurance policies."
+        }
+      },
+      {
+        "title": {
+          "pt": "Infraestrutura para a integração e outros serviços",
+          "en": "Infrastructure for the integration and other services"
+        },
+        "text": {
+          "pt": "Desenvolvimento da infraestrutura em Docker Swarm, conforme a solução solicitada pelo cliente, para suportar o serviço de integração e outros serviços da empresa. Atuação em CI/CD, observabilidade, confiabilidade e incidentes de produção.",
+          "en": "Built Docker Swarm infrastructure using the client’s requested orchestration solution to support the integration service and other company services. Worked on CI/CD, observability, reliability and production incidents."
+        }
+      },
+      {
+        "title": {
+          "pt": "Microsserviço de IA para documentos de seguro",
+          "en": "AI microservice for insurance documents"
+        },
+        "text": {
+          "pt": "Desenvolvimento de microsserviço para tratar e converter PDFs de apólices, minutas e boletos, extraindo dados com IA para uso nos fluxos da plataforma.",
+          "en": "Developed a microservice to process and convert policy, draft policy and payment slip PDFs, extracting data with AI for use in platform workflows."
+        }
+      },
+      {
+        "title": {
+          "pt": "Zoe · agente de IA em sandbox",
+          "en": "Zoe · AI agent in sandbox"
+        },
+        "text": {
+          "pt": "Desenvolvimento da Zoe para interagir com corretores e clientes, com escopo de atuação limitado ao perfil do usuário. A partir de propostas e documentos judiciais, como uma petição inicial, o agente reconhecia informações para gerar demandas de seguro garantia e consultar e acompanhar demandas existentes. A solução estava em validação em sandbox, com integração ao produto ainda pendente.",
+          "en": "Developed Zoe to interact with brokers and customers within a scope limited by user profile. From proposals and legal documents, such as an initial petition, the agent identified information to create surety insurance requests and retrieve and track existing requests. The solution was being validated in a sandbox, with product integration still pending."
+        }
+      },
+      {
+        "title": {
+          "pt": "Integrações regulatórias",
+          "en": "Regulatory integrations"
+        },
+        "text": {
+          "pt": "Desenvolvimento de integrações e rotinas de coleta para fontes regulatórias, incluindo a SUSEP.",
+          "en": "Developed integrations and collection routines for regulatory sources, including SUSEP."
+        }
+      }
+    ]
+  },
+  {
+    "id": "involves",
+    "company": "Involves",
+    "period": {
+      "pt": "2018–2022 · 2024–2025",
+      "en": "2018–2022 · 2024–2025"
+    },
+    "role": {
+      "pt": "Engenharia de Redes → DevOps → Site Reliability Engineering",
+      "en": "Network Engineering → DevOps → Site Reliability Engineering"
+    },
+    "summary": {
+      "pt": "Duas passagens pela Involves: Engenharia de Redes (jan/2018–jun/2022) e DevOps (jun/2022–out/2022), com retorno como SRE (fev/2024–ago/2025). Evolução da automação de infraestrutura e ferramentas internas para a confiabilidade de sistemas em produção.",
+      "en": "Two periods at Involves: Network Engineering (Jan 2018–Jun 2022) and DevOps (Jun 2022–Oct 2022), followed by a return as an SRE (Feb 2024–Aug 2025). Progressed from infrastructure automation and internal tools to production system reliability."
+    },
+    "stack": [
+      "Python",
+      "Django",
+      "Flask",
+      "AWS",
+      "GitHub API",
+      "Vault",
+      "OpenVPN",
+      "Prometheus",
+      "Grafana",
+      "Zabbix",
+      "Docker",
+      "CI/CD"
+    ],
+    "deliveries": [
+      {
+        "title": {
+          "pt": "Confiabilidade, incidentes e observabilidade",
+          "en": "Reliability, incidents and observability"
+        },
+        "text": {
+          "pt": "Como SRE, responsabilidade pela investigação de incidentes e análise de causa raiz, com construção e manutenção de monitoramento e alertas em Prometheus, Grafana e Zabbix.",
+          "en": "As an SRE, owned incident investigation and root-cause analysis, building and maintaining monitoring and alerting with Prometheus, Grafana and Zabbix."
+        }
+      },
+      {
+        "title": {
+          "pt": "Automação e apoio à entrega",
+          "en": "Automation and delivery support"
+        },
+        "text": {
+          "pt": "Desenvolvimento de ferramentas de automação de infraestrutura e colaboração em pipelines CI/CD, deploys com Docker e análise de desempenho das aplicações.",
+          "en": "Developed infrastructure automation tools and partnered on CI/CD pipelines, Docker deployments and application performance analysis."
+        }
+      },
+      {
+        "title": {
+          "pt": "Gestão de acessos e onboarding",
+          "en": "Access management and onboarding"
+        },
+        "text": {
+          "pt": "Aplicação Python integrada ao ERP para centralizar acessos, automações com APIs da AWS e GitHub e chatbot para acompanhar o onboarding de colaboradores.",
+          "en": "Built an ERP-integrated Python application for centralized access management, AWS and GitHub API automations and a chatbot to track employee onboarding."
+        }
+      },
+      {
+        "title": {
+          "pt": "Ferramentas para a operação",
+          "en": "Operational tooling"
+        },
+        "text": {
+          "pt": "Automação de credenciais VPN, chatbot integrado ao Vault, dashboard de uso do OpenVPN e relatórios automatizados de telefonia.",
+          "en": "Automated VPN credentials, built a Vault-integrated chatbot, an OpenVPN usage dashboard and automated telephony reports."
+        }
+      }
+    ]
+  },
+  {
+    "id": "panteu",
+    "company": "Panteu Tecnologia em Seguros",
+    "period": {
+      "pt": "Out 2021 — Out 2023",
+      "en": "Oct 2021 — Oct 2023"
+    },
+    "role": {
+      "pt": "Consultoria independente · Desenvolvimento backend",
+      "en": "Independent consultant · Backend development"
+    },
+    "summary": {
+      "pt": "Levantamento de requisitos, arquitetura e desenvolvimento da base backend de uma solução para o mercado de seguro garantia.",
+      "en": "Requirements gathering, architecture and development of the backend foundation for a surety insurance solution."
+    },
+    "stack": [
+      "Python",
+      "Django",
+      "FastAPI",
+      "Celery",
+      "PostgreSQL",
+      "MongoDB",
+      "Docker",
+      "GitHub Actions"
+    ],
+    "deliveries": [
+      {
+        "title": {
+          "pt": "Base backend e integrações com seguradoras",
+          "en": "Backend foundation and insurer integrations"
+        },
+        "text": {
+          "pt": "Desenvolvimento do núcleo backend em Python, Django e FastAPI e de um microsserviço de integração com APIs de seguradoras brasileiras.",
+          "en": "Developed the core backend with Python, Django and FastAPI and a microservice integrating Brazilian insurer APIs."
+        }
+      },
+      {
+        "title": {
+          "pt": "Serviços de automação",
+          "en": "Automation services"
+        },
+        "text": {
+          "pt": "Construção de microsserviço de notificações e envio de e-mails e de uma API para disparar e gerenciar execuções de robôs de coleta.",
+          "en": "Built a notification and email microservice and an API to trigger and manage scraping bot executions."
+        }
+      },
+      {
+        "title": {
+          "pt": "Entrega contínua e integração do produto",
+          "en": "Continuous delivery and product integration"
+        },
+        "text": {
+          "pt": "Implementação de pipelines de build, testes e deploy com GitHub Actions e integração dos serviços backend com o frontend Vue.",
+          "en": "Implemented build, test and deployment pipelines with GitHub Actions and connected backend services to the Vue frontend."
+        }
+      }
+    ]
+  }
+]

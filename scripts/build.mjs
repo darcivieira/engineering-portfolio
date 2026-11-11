@@ -1,15 +1,17 @@
 import { readFile, writeFile, mkdir, cp } from 'node:fs/promises';
 import { join } from 'node:path';
 const root = process.cwd();
-const [site, projects] = await Promise.all([
+const [site, projects, experience] = await Promise.all([
   readFile(join(root, 'content/site.json'), 'utf8').then(JSON.parse),
   readFile(join(root, 'content/projects.json'), 'utf8').then(JSON.parse),
+  readFile(join(root, 'content/experience.json'), 'utf8').then(JSON.parse),
 ]);
 const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const svg = (path, cls='') => `<svg class="icon ${cls}" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${path}</svg>`;
 const icons = {
   arrow:svg('<path d="M5 12h14m-6-6 6 6-6 6"/>'),
   diagonal:svg('<path d="M7 17 17 7M8 7h9v9"/>'),
+  linkedin:svg('<rect x="2" y="2" width="20" height="20" rx="3"/><path d="M7 10v7M7 7v.01M11 17v-7h3v1a3 3 0 0 1 4 3v3M11 13a3 3 0 0 1 3-3"/>'),
   github:svg('<path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 6v-3.9a3.3 3.3 0 0 0-.9-2.6c3-.3 6.2-1.5 6.2-6.8A5.2 5.2 0 0 0 19 5a4.8 4.8 0 0 0-.1-3.8s-1.1-.4-3.9 1.5a13.7 13.7 0 0 0-7 0C5.2.8 4.1 1.2 4.1 1.2A4.8 4.8 0 0 0 4 5a5.2 5.2 0 0 0-1.3 3.7c0 5.3 3.2 6.5 6.2 6.8a3.3 3.3 0 0 0-.9 2.6V22"/>'),
   layers:svg('<path d="m12 3 9 5-9 5-9-5 9-5Zm-9 9 9 5 9-5M3 16l9 5 9-5"/>'),
   code:svg('<path d="m8 9-3 3 3 3m8-6 3 3-3 3m-5-9-2 12"/>'),
@@ -40,9 +42,9 @@ function render(lang) {
   const canonical='https://example.pages.dev'+path;
   const caseCards=[1,2,3].map(n=>`<article class="case-card reveal case-${n}"><div class="case-card-top"><span class="case-index">0${n}</span><span class="case-glyph">${n===1?icons.shield:n===2?icons.branch:icons.cloud}</span></div><p class="case-kicker">${esc(t[`case${n}Tag`])}</p><h3>${esc(t[`case${n}Title`])}</h3><p>${esc(t[`case${n}Body`])}</p><span class="case-foot">${esc(t[`case${n}Foot`])}</span></article>`).join('');
   const principles=[['layers',1],['code',2],['database',3],['shield',4]].map(([ic,n])=>`<article class="principle reveal"><span class="principle-icon">${icons[ic]}</span><div><h3>${esc(t[`principle${n}Title`])}</h3><p>${esc(t[`principle${n}Text`])}</p></div><span class="principle-index">0${n}</span></article>`).join('');
-  const careers=[['A','a'],['B','b'],['C','c']].map(([k,l],i)=>`<article class="career-item reveal"><div class="career-rail"><span class="career-marker"></span>${i<2?'<span class="career-line"></span>':''}</div><div class="career-info"><div class="career-topline"><h3>${esc(t[`career${k}Company`])}</h3><span class="career-time">${esc(t[`career${k}Time`])}</span></div><p class="career-role">${esc(t[`career${k}Role`])}</p><p class="career-desc">${esc(t[`career${k}Desc`])}</p></div></article>`).join('');
+  const careers=experience.map((entry,i)=>`<article class="career-item reveal" data-experience="${esc(entry.id)}"><div class="career-rail"><span class="career-marker"></span>${i<experience.length-1?'<span class="career-line"></span>':''}</div><div class="career-info"><div class="career-topline"><h3>${esc(entry.company)}</h3><span class="career-time">${esc(entry.period[lang])}</span></div><p class="career-role">${esc(entry.role[lang])}</p><p class="career-desc">${esc(entry.summary[lang])}</p><details class="career-deliveries"${i===0?' open':''}><summary>${esc(t.careerDeliveries)}<span aria-hidden="true">+</span></summary><ul>${entry.deliveries.map(delivery=>`<li><h4>${esc(delivery.title[lang])}</h4><p>${esc(delivery.text[lang])}</p></li>`).join('')}</ul></details><div class="career-stack">${entry.stack.map(technology=>`<span class="tag">${esc(technology)}</span>`).join('')}</div></div></article>`).join('');
   const contactEmail=site.identity.email?`<a class="contact-link" href="mailto:${esc(site.identity.email)}">${icons.arrow}${esc(t.contactEmail)}</a>`:'';
-  const contactLinkedin=site.identity.linkedinUrl?`<a class="contact-link" target="_blank" rel="noopener noreferrer" href="${esc(site.identity.linkedinUrl)}">${icons.arrow}${esc(t.contactLinkedin)}</a>`:'';
+  const contactLinkedin=site.identity.linkedinUrl?`<a class="btn btn-secondary" target="_blank" rel="noopener noreferrer" href="${esc(site.identity.linkedinUrl)}">${icons.linkedin}${esc(t.contactLinkedin)}${icons.diagonal}</a>`:'';
   return `<!doctype html>
 <html lang="${lang==='pt'?'pt-BR':'en'}">
 <head>
@@ -60,9 +62,9 @@ function render(lang) {
 <div class="site-noise" aria-hidden="true"></div><div class="ambient ambient-left" aria-hidden="true"></div><div class="ambient ambient-right" aria-hidden="true"></div>
 <header class="site-header" id="top"><div class="header-inner wrap">
   <a href="${path}" class="brand" aria-label="D.V. Engineering Home"><span class="brand-icon"><span class="brand-chevron">&gt;_</span></span><span class="brand-name">D.V<span class="brand-muted"> / ENGINEERING</span></span></a>
-  <nav class="desktop-nav" aria-label="Primary navigation"><a href="#projects">${esc(t.navWork)}</a><a href="#engineering">${esc(t.navPhilosophy)}</a><a href="#experience">${esc(t.navExperience)}</a><a href="#github">${esc(t.navActivity)}</a></nav>
+  <nav class="desktop-nav" aria-label="Primary navigation"><a href="#about">${esc(t.navAbout)}</a><a href="#projects">${esc(t.navWork)}</a><a href="#engineering">${esc(t.navPhilosophy)}</a><a href="#experience">${esc(t.navExperience)}</a><a href="#github">${esc(t.navActivity)}</a></nav>
   <div class="nav-actions"><a class="language-pill" href="${switchPath}" aria-label="${esc(t.toggle)}">${icons.globe}<span>${lang==='pt'?'EN':'PT'}</span></a><a class="header-cta" href="#contact">${esc(t.navContact)} ${icons.diagonal}</a><button class="mobile-menu-btn" aria-label="${esc(t.navMenu)}" aria-expanded="false" aria-controls="mobile-nav">${icons.menu}</button></div>
-</div><nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation" hidden><a href="#projects">${esc(t.navWork)}</a><a href="#engineering">${esc(t.navPhilosophy)}</a><a href="#experience">${esc(t.navExperience)}</a><a href="#github">${esc(t.navActivity)}</a><a href="#contact">${esc(t.navContact)}</a><a href="${switchPath}">PT / EN</a></nav></header>
+</div><nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation" hidden><a href="#about">${esc(t.navAbout)}</a><a href="#projects">${esc(t.navWork)}</a><a href="#engineering">${esc(t.navPhilosophy)}</a><a href="#experience">${esc(t.navExperience)}</a><a href="#github">${esc(t.navActivity)}</a><a href="#contact">${esc(t.navContact)}</a><a href="${switchPath}">PT / EN</a></nav></header>
 <main id="main">
 <section class="hero section" id="home"><div class="wrap hero-layout">
   <div class="hero-copy"><div class="available reveal"><span class="status-dot"></span>${esc(t.navAvailability)} <span class="availability-sep">/</span> ${esc(t.heroLocation)}</div>
@@ -74,16 +76,25 @@ function render(lang) {
   </div>
   <div class="hero-visual reveal" aria-label="Architecture conceptual visualization"><div class="orbit-large orbit-one"></div><div class="orbit-large orbit-two"></div><div class="float-label float-label-one">01 / BACKEND</div><div class="float-label float-label-two">02 / CLOUD</div><div class="architecture-panel">
   <div class="panel-head"><span class="panel-dots"><b></b><b></b><b></b></span><span>${esc(t.terminalTitle)}</span><span class="panel-hash">#001</span></div>
-  <div class="panel-body"><div class="panel-kicker"><span class="pulse-tiny"></span>${esc(t.terminalPill)}</div><div class="panel-file"><span class="line-number">01</span><span class="line-prefix">const</span> <span class="line-word">engineering</span> = {</div>
-  <div class="panel-file code-indent"><span class="line-number">02</span><span class="code-property">domain</span>: <span class="code-string">'first'</span>,</div>
-  <div class="panel-file code-indent"><span class="line-number">03</span><span class="code-property">modules</span>: <span class="code-string">'cohesive'</span>,</div>
-  <div class="panel-file code-indent"><span class="line-number">04</span><span class="code-property">complexity</span>: <span class="code-string">'earned'</span>,</div>
-  <div class="panel-file code-indent"><span class="line-number">05</span><span class="code-property">operations</span>: <span class="code-string">'built-in'</span>,</div>
+  <div class="panel-body"><div class="panel-kicker"><span class="pulse-tiny"></span>${esc(t.terminalPill)}</div><div class="panel-file"><span class="line-number">01</span><span class="line-word">engineering</span> = {</div>
+  <div class="panel-file code-indent"><span class="line-number">02</span><span class="code-property">'domain'</span>: <span class="code-string">'first'</span>,</div>
+  <div class="panel-file code-indent"><span class="line-number">03</span><span class="code-property">'modules'</span>: <span class="code-string">'cohesive'</span>,</div>
+  <div class="panel-file code-indent"><span class="line-number">04</span><span class="code-property">'complexity'</span>: <span class="code-string">'earned'</span>,</div>
+  <div class="panel-file code-indent"><span class="line-number">05</span><span class="code-property">'operations'</span>: <span class="code-string">'built-in'</span>,</div>
   <div class="panel-file"><span class="line-number">06</span>}</div>
   <div class="panel-divider"></div><div class="panel-check">${icons.check}<span>${esc(t.terminalLineA)}</span></div><div class="panel-check">${icons.check}<span>${esc(t.terminalLineB)}</span></div><div class="panel-check">${icons.check}<span>${esc(t.terminalLineC)}</span></div></div>
   <div class="panel-foot"><span><i class="green-light"></i> ALL SYSTEMS OPERATIONAL</span><span>DV:DEV</span></div></div>
   <div class="visual-footer">${icons.terminal}<span>${esc(t.terminalFooter)}</span></div>
-  </div></div><div class="hero-end wrap"><a href="#engineering" class="scroll-note"><span class="scroll-line"></span>${esc(t.heroScroll)}</a><span class="hero-index">PORTFOLIO / 2026</span></div></section>
+  </div></div><div class="hero-end wrap"><a href="#about" class="scroll-note"><span class="scroll-line"></span>${esc(t.heroScroll)}</a><span class="hero-index">PORTFOLIO / 2026</span></div></section>
+<section class="section about-section" id="about" aria-labelledby="about-title"><div class="wrap about-layout">
+  <div class="about-letter reveal"><p class="eyebrow"><span class="eyebrow-tick"></span>${esc(t.aboutEyebrow)}</p><h2 id="about-title">${esc(t.aboutTitle)}</h2>
+  <p class="about-intro">${esc(t.aboutIntro)}</p><p>${esc(t.aboutBody)}</p><p>${esc(t.aboutApproach)}</p><p>${esc(t.aboutClosing)}</p>
+  <div class="about-signature"><strong>${esc(site.identity.name)}</strong><span>${esc(t.aboutRole)}</span></div>
+  <a href="#contact" class="simple-link">${esc(t.aboutCta)}${icons.arrow}</a></div>
+  <aside class="about-value reveal" aria-labelledby="about-value-title"><h3 id="about-value-title">${esc(t.aboutValueTitle)}</h3>
+  ${[1,2,3].map(n=>`<div class="about-value-item"><h4>${esc(t[`aboutValue${n}Title`])}</h4><p>${esc(t[`aboutValue${n}Text`])}</p></div>`).join('')}
+  <p class="about-availability">${esc(t.aboutAvailability)}</p></aside>
+</div></section>
 <section class="section projects-section" id="projects"><div class="wrap">
   <div class="section-header-split">${sectionHeading(t.sectionWorkEyebrow,t.sectionWorkTitle,t.sectionWorkLead)}<a class="simple-link" href="${esc(site.identity.githubUrl)}?tab=repositories" target="_blank" rel="noopener noreferrer">${esc(t.githubMore)}${icons.diagonal}</a></div>
   <div class="filter-row" role="group" aria-label="Project filters"><button class="filter-btn active" data-filter="all" aria-pressed="true">${esc(t.filterAll)} <span>04</span></button><button class="filter-btn" data-filter="ai" aria-pressed="false">${esc(t.filterAi)}</button><button class="filter-btn" data-filter="integrations" aria-pressed="false">${esc(t.filterIntegrations)}</button><button class="filter-btn" data-filter="backend" aria-pressed="false">${esc(t.filterBackend)}</button></div>
@@ -101,12 +112,12 @@ function render(lang) {
 <section class="section activity-section" id="github"><div class="wrap">${sectionHeading(t.sectionActivityEyebrow,t.sectionActivityTitle,t.sectionActivityLead)}
 <div class="activity-dashboard reveal" data-github-activity="true"><div class="activity-top"><div class="activity-user"><span class="activity-avatar">${icons.github}</span><div><strong>@${esc(site.identity.github)}</strong><span>github.com/${esc(site.identity.github)}</span></div></div><div class="sync-label"><span class="sync-signal"></span>${esc(t.activitySync)}: <time id="activity-updated">${esc(t.activityStatus)}</time></div></div>
 <div class="activity-metrics"><div><span class="metric-value" id="metric-commits">—</span><span class="metric-label">${esc(t.activityCommits)}</span></div><div><span class="metric-value" id="metric-events">—</span><span class="metric-label">${esc(t.activityEvents)}</span></div><div><span class="metric-value" id="metric-repos">—</span><span class="metric-label">${esc(t.activityRepos)}</span></div></div>
-<div class="activity-lower"><div class="activity-chart-zone"><h3>${esc(t.activityChart)}</h3><div class="activity-chart" id="activity-chart" aria-label="${esc(t.activityChart)}"><div class="chart-placeholder" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div></div><p class="activity-disclaimer">${esc(t.activityNote)}</p></div><div class="activity-events-zone"><h3>${esc(t.activityRecent)}</h3><div id="activity-events" class="activity-feed"><p class="activity-empty">${esc(t.activityEmpty)}</p></div></div></div>
-<div class="activity-bottom"><a href="${esc(site.identity.githubUrl)}" target="_blank" rel="noopener noreferrer" class="simple-link">${esc(t.activityAll)}${icons.diagonal}</a><span>PUBLIC DATA ONLY · GITHUB REST API</span></div></div></div></section>
+<div class="activity-lower"><div class="activity-chart-zone"><h3>${esc(t.activityChart)}</h3><div class="activity-chart" id="activity-chart" aria-label="${esc(t.activityChart)}"><div class="chart-placeholder" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div></div><p class="activity-disclaimer">${esc(t.activityNote)}</p><p class="activity-disclaimer">${esc(t.activityCoverage)}</p><p class="activity-disclaimer" id="activity-period"></p></div><div class="activity-events-zone"><h3>${esc(t.activityRecent)}</h3><div id="activity-events" class="activity-feed"><p class="activity-empty">${esc(t.activityEmpty)}</p></div><p class="activity-disclaimer">${esc(t.activityEventNote)}</p></div></div>
+<div class="activity-bottom"><a href="${esc(site.identity.githubUrl)}" target="_blank" rel="noopener noreferrer" class="simple-link">${esc(t.activityAll)}${icons.diagonal}</a><span>GITHUB · CONTRIBUTION CALENDAR</span></div></div></div></section>
 <section class="section contact-section" id="contact"><div class="wrap"><div class="contact-card"><div class="contact-glow"></div><div class="contact-body"><p class="eyebrow"><span class="eyebrow-tick"></span>${esc(t.sectionContactEyebrow)}</p><h2>${esc(t.sectionContactTitle)}</h2><p class="contact-lead">${esc(t.sectionContactLead)}</p><div class="contact-types"><span>${icons.check}${esc(t.contactConsult)}</span><span>${icons.check}${esc(t.contactPosition)}</span></div><div class="contact-actions"><a class="btn btn-primary" target="_blank" rel="noopener noreferrer" href="${esc(site.identity.githubUrl)}">${icons.github}${esc(t.contactGitHub)}${icons.diagonal}</a>${contactEmail}${contactLinkedin}</div></div><div class="contact-mark" aria-hidden="true">&gt;_</div></div></div></section>
 </main>
 <footer class="site-footer"><div class="wrap footer-content"><a href="#top" class="brand footer-brand"><span class="brand-icon"><span class="brand-chevron">&gt;_</span></span><span class="brand-name">D.V<span class="brand-muted"> / ENGINEERING</span></span></a><p>${esc(t.footerText)}</p><a class="back-to-top" href="#top">${esc(t.footerBack)} ↑</a></div><div class="wrap footer-bottom"><span>© ${new Date().getFullYear()} D.V. ENGINEERING</span><span>PT / EN · BUILT TO LAST</span></div></footer>
-<script type="application/json" id="page-labels">${JSON.stringify({empty:t.activityEmpty,lang,projectCode:t.projectCode}).replace(/</g,'\\u003c')}</script>
+<script type="application/json" id="page-labels">${JSON.stringify({empty:t.activityEmpty,count:t.activityCount,period:t.activityPeriod,actions:{opened:t.activityActionOpened,closed:t.activityActionClosed,merged:t.activityActionMerged,reopened:t.activityActionReopened,created:t.activityActionCreated},lang,projectCode:t.projectCode}).replace(/</g,'\\u003c')}</script>
 </body></html>`;
 }
 await mkdir(join(root,'dist/assets'),{recursive:true});

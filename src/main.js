@@ -38,7 +38,6 @@ if ('IntersectionObserver' in window) {
 const labels = JSON.parse(document.getElementById('page-labels')?.textContent || '{}');
 const locale = labels.lang === 'en' ? 'en-US' : 'pt-BR';
 function safeDate(dateString){const d=new Date(dateString);return Number.isNaN(d.getTime())?null:d;}
-function daysBack(date,n){const d=new Date(date); d.setUTCDate(d.getUTCDate()-n);return d;}
 function makeTag(tag,cls,text){const el=document.createElement(tag);if(cls)el.className=cls;if(text!==undefined)el.textContent=text;return el;}
 async function renderActivity(){
   let data;
@@ -46,30 +45,37 @@ async function renderActivity(){
   if(!data.updatedAt)return;
   const update=safeDate(data.updatedAt);if(!update)return;
   document.getElementById('activity-updated').textContent=new Intl.DateTimeFormat(locale,{day:'2-digit',month:'short',year:'numeric'}).format(update);
-  const commits=Array.isArray(data.commits)?data.commits:[];
-  const events=Array.isArray(data.events)?data.events:[];
-  const repos=Array.isArray(data.repositories)?data.repositories:[];
-  document.getElementById('metric-commits').textContent=String(commits.length);
-  document.getElementById('metric-events').textContent=data.eventsVerified === false ? '—' : String(events.length);
-  document.getElementById('metric-repos').textContent=String(new Set([...commits,...events].map(x=>x.repo).filter(Boolean)).size);
-  const chart=document.getElementById('activity-chart'); chart.replaceChildren();
-  const start=new Date();start.setHours(0,0,0,0);
-  const weekly=Array.from({length:7},(_,i)=>{const day=daysBack(start,6-i), key=day.toISOString().slice(0,10);return {day,key,amount:commits.filter(c=>c.date?.slice(0,10)===key).length};});
-  const top=Math.max(1,...weekly.map(x=>x.amount));
-  for(const item of weekly){
-    const col=makeTag('div','chart-column');
-    const value=makeTag('span','chart-value',String(item.amount));
-    const bar=makeTag('div','chart-bar');bar.style.height=`${Math.max(6,(item.amount/top)*100)}%`;bar.setAttribute('title',`${item.key}: ${item.amount}`);
-    const label=makeTag('span','chart-day',new Intl.DateTimeFormat(locale,{weekday:'short',timeZone:'UTC'}).format(item.day).replace('.',''));
-    col.append(value,bar,label);chart.append(col);
+  const summary=data.contributions;
+  const chart=document.getElementById('activity-chart');
+  if(summary && Array.isArray(summary.days) && summary.days.length===30 && Number.isInteger(summary.total)){
+    document.getElementById('metric-commits').textContent=String(summary.total);
+    document.getElementById('metric-events').textContent=String(summary.restricted);
+    document.getElementById('metric-repos').textContent=String(summary.activeDays);
+    const dateFormat=new Intl.DateTimeFormat(locale,{day:'2-digit',month:'short',year:'numeric',timeZone:'UTC'});
+    document.getElementById('activity-period').textContent=`${labels.period}: ${dateFormat.format(new Date(summary.from))} — ${dateFormat.format(new Date(summary.to))}.`;
+    chart.replaceChildren();
+    const top=Math.max(1,...summary.days.map(day=>day.count));
+    for(const [index,item] of summary.days.entries()){
+      const day=new Date(`${item.date}T00:00:00Z`);
+      const description=`${dateFormat.format(day)}: ${item.count} ${labels.count}`;
+      const col=makeTag('div','chart-column');col.dataset.date=item.date;col.dataset.count=String(item.count);
+      col.setAttribute('role','img');col.setAttribute('aria-label',description);
+      const value=makeTag('span','chart-value',item.count ? String(item.count) : '');value.setAttribute('aria-hidden','true');
+      const bar=makeTag('div','chart-bar');bar.style.height=`${Math.max(4,(item.count/top)*100)}%`;bar.setAttribute('title',description);
+      const tick=index===0 || index===29 || index%7===0;
+      const label=makeTag('span','chart-day',tick ? new Intl.DateTimeFormat(locale,{day:'2-digit',timeZone:'UTC'}).format(day) : '');label.setAttribute('aria-hidden','true');
+      col.append(value,bar,label);chart.append(col);
+    }
   }
+  const events=Array.isArray(data.events)?data.events:[];
   const feed=document.getElementById('activity-events');feed.replaceChildren();
-  const items=[...commits.map(x=>({...x,kind:'commit'})), ...events.map(x=>({...x,kind:'event'}))].sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,6);
+  const items=[...events].sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,8);
   if(!items.length){feed.append(makeTag('p','activity-empty',labels.empty));return;}
   for(const item of items){
-    const row=makeTag('div','feed-row');const marker=makeTag('span','feed-marker');marker.textContent=item.kind==='commit'?'↳':'◇';
+    const row=makeTag('div','feed-row');const marker=makeTag('span','feed-marker');marker.textContent='◇';
     const mid=makeTag('div','feed-mid');
-    const title=makeTag('span','feed-title',item.title || item.type || (item.kind==='commit'?'Commit':'Event'));
+    const eventLabel=[item.type,labels.actions?.[item.action]||item.action].filter(Boolean).join(' · ');
+    const title=makeTag('span','feed-title',item.title && item.title!==item.type ? `${eventLabel}: ${item.title}` : eventLabel);
     const info=makeTag('span','feed-info',item.repo||'GitHub'); mid.append(title,info);
     const date=safeDate(item.date);const dateLabel=makeTag('time','feed-date',date?new Intl.DateTimeFormat(locale,{day:'2-digit',month:'short'}).format(date):'');
     row.append(marker,mid,dateLabel);feed.append(row);
