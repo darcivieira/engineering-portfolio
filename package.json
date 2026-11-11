@@ -1,0 +1,14 @@
+{
+  "name": "dv-engineering-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Bilingual engineering & consulting portfolio, zero runtime dependencies",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "sync:github": "node scripts/sync-github.mjs",
+    "preview": "python3 -m http.server 4173 -d dist",
+    "test": "node scripts/test.mjs"
+  },
+  "engines": {"node": ">=20"}
+}

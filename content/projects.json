@@ -1,0 +1,50 @@
+[
+  {
+    "id": "crucible", "number": "01", "type": "open", "category": "ai", "featured": true,
+    "repo": "https://github.com/darcivieira/crucible", "accent": "violet",
+    "stack": ["Python", "LLM Evaluation", "SQLite", "SDK / CLI"],
+    "title": {"pt": "Crucible", "en": "Crucible"},
+    "subtitle": {"pt": "Otimização empírica de prompts", "en": "Empirical prompt optimization"},
+    "summary": {
+      "pt": "Framework local-first para testar, avaliar e refinar prompts com benchmarks versionados. Equilibra qualidade, custo e latência e registra as decisões de cada execução.",
+      "en": "Local-first framework to test, evaluate and refine prompts against versioned benchmarks. Balances quality, cost and latency while preserving the history behind each run."
+    },
+    "detail": {"pt": "Benchmarks • Pareto frontier • Relatórios • Múltiplos provedores", "en": "Benchmarks • Pareto frontier • Reports • Multiple providers"}
+  },
+  {
+    "id": "kanbanize", "number": "02", "type": "open", "category": "integrations", "featured": true,
+    "repo": "https://github.com/darcivieira/kanbanize-sdk", "accent": "cyan",
+    "stack": ["Python", "REST API", "Dataclasses", "PyPI"],
+    "title": {"pt": "Kanbanize SDK", "en": "Kanbanize SDK"},
+    "subtitle": {"pt": "Integrações com interfaces intuitivas", "en": "Integration via developer-friendly interfaces"},
+    "summary": {
+      "pt": "Biblioteca Python sobre a API v2 do Kanbanize, com abstrações para recursos, pesquisas e payloads. Demonstra como transformar integrações externas em contratos simples de consumir.",
+      "en": "Python library built on Kanbanize API v2, wrapping resources, queries and payloads. Shows how external integrations can become simple, developer-friendly contracts."
+    },
+    "detail": {"pt": "SDK • API Client • CI • Documentação", "en": "SDK • API Client • CI • Documentation"}
+  },
+  {
+    "id": "backend-challenge", "number": "03", "type": "open", "category": "backend", "featured": true,
+    "repo": "https://github.com/darcivieira/first-backend-challange", "accent": "lime",
+    "stack": ["Python", "Transactions", "REST", "Testing"],
+    "title": {"pt": "Financial Transfer Challenge", "en": "Financial Transfer Challenge"},
+    "subtitle": {"pt": "Transações consistentes sob falhas", "en": "Reliable financial transactions under failure"},
+    "summary": {
+      "pt": "Desafio de backend com carteiras, autorização externa, restrições de transferência, reversão em falhas e notificações. Um caso concreto de modelagem de regras financeiras.",
+      "en": "Backend challenge with wallets, external authorization, transfer restrictions, failure rollback and notifications. A concrete exercise in modeling financial business rules."
+    },
+    "detail": {"pt": "Consistência • Regras de negócio • Integração", "en": "Consistency • Business rules • Integration"}
+  },
+  {
+    "id": "rag", "number": "04", "type": "open", "category": "ai", "featured": true,
+    "repo": "https://github.com/darcivieira/rag-ai-agent", "accent": "orange",
+    "stack": ["FastAPI", "LangGraph", "LangChain", "Slack"],
+    "title": {"pt": "RAG AI Agent", "en": "RAG AI Agent"},
+    "subtitle": {"pt": "Orquestração de agentes e recuperação", "en": "Agent orchestration and retrieval"},
+    "summary": {
+      "pt": "Assistente orientado a produção com FastAPI, roteamento por agentes especializados, pesquisa contextual e integração opcional com Slack.",
+      "en": "Production-oriented assistant using FastAPI, specialized agent routing, contextual research and an optional Slack integration."
+    },
+    "detail": {"pt": "Agentes • RAG • Fluxos especializados", "en": "Agents • RAG • Specialized workflows"}
+  }
+]
