@@ -1,19 +1,15 @@
 {
   "username": "darcivieira",
-  "updatedAt": "2026-11-17T17:37:39.414Z",
+  "updatedAt": "2026-11-18T17:15:31.194Z",
   "windowDays": 30,
   "contributions": {
-    "from": "2026-10-19T00:00:00.000Z",
-    "to": "2026-11-17T23:59:59.999Z",
-    "updatedAt": "2026-11-17T17:37:39.414Z",
-    "total": 426,
-    "restricted": 414,
+    "from": "2026-10-20T00:00:00.000Z",
+    "to": "2026-11-18T23:59:59.999Z",
+    "updatedAt": "2026-11-18T17:15:31.194Z",
+    "total": 428,
+    "restricted": 416,
     "activeDays": 22,
     "days": [
-      {
-        "date": "2026-10-19",
-        "count": 5
-      },
       {
         "date": "2026-10-20",
         "count": 10
@@ -128,7 +124,11 @@
       },
       {
         "date": "2026-11-17",
-        "count": 18
+        "count": 22
+      },
+      {
+        "date": "2026-11-18",
+        "count": 3
       }
     ]
   },
